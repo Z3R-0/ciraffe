@@ -4,7 +4,7 @@ An attempt at a transpiled programming language, more for educational purposes t
 ## Installation
 Currently the language itself is not in working order, so give it about 2 eons and maybe I'll have implemented the ability to compile my own printf :)
 
-There is however ```structures.c``` which you could use as a dictionary library.
+There is however ```structures.h``` which you could use as a dictionary library.
 It's built using nodes and string pairs and supports:
 * Memory management
 * Adding/Removing
