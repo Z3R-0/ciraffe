@@ -30,7 +30,15 @@ int main(int argc, char *argv[]) {
 struct dictionary recognized_token_builder() {
     struct dictionary dict = create_dictionary();
 
-    add_node(dict, "", "");
+    add_node(dict, "open bracket", "{");
+    add_node(dict, "close bracket", "}");
+    add_node(dict, "open parenthesis", "\(");
+    add_node(dict, "open parenthesis", "\)");
+    add_node(dict, "semicolon", ";");
+    add_node(dict, "int keyword", "int");
+    add_node(dict, "return keyword", "return");
+    add_node(dict, "identifier", "[a-zA-Z]\w*"); // regex for catching words seperated by whitespace
+    add_node(dict, "integer literal", "[0-9]+"); // regex for catching numbers
 }
 
 void token_cleaner(struct dictionary dict) {
