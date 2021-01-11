@@ -1,5 +1,5 @@
 # ciraffe
-An attempt at a transpiled programming language, more for educational purposes than anything else.
+An attempt at a transpiled programming language (transpiled to C), more for educational purposes than anything else.
 
 ## Installation
 Currently the language itself is not in working order, so give it about 2 eons and maybe I'll have implemented the ability to compile my own printf :)
