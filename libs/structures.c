@@ -6,6 +6,7 @@
 #define FALSE 0
 #define TRUE 1
 
+/// Creates an empty dictionary
 struct dictionary create_dictionary() {
     struct dictionary _dictionary;
     malloc(sizeof(&_dictionary));
@@ -13,6 +14,7 @@ struct dictionary create_dictionary() {
     return _dictionary;
 }
 
+// Frees all memory held by provided dictionary
 void destroy_dictionary(struct dictionary *_dictionary) {
     for(int i = 0;i < _dictionary->size;i++){
         free(_dictionary->nodes[i].this.key);
