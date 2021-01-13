@@ -20,10 +20,12 @@ struct dictionary recognized_tokens;
 
 // The first argument is always the program itself
 int main(int argc, char *argv[]) {
+    // Initialization
+    char *file_to_parse = argv[1];
     recognized_tokens = recognized_token_builder();
 
 
-
+    // 
     token_cleaner(recognized_tokens);
 }
 
