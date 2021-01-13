@@ -31,8 +31,8 @@ void add_node(struct dictionary _dictionary, char *key, char *value) {
 
     malloc(sizeof(new_pair));
 
-    new_pair.key = *key;
-    new_pair.value = *value;
+    new_pair.key = key;
+    new_pair.value = value;
 
     struct node new_node = { new_node.this = new_pair };
 
@@ -42,14 +42,14 @@ void add_node(struct dictionary _dictionary, char *key, char *value) {
     _dictionary.nodes[_dictionary.size-1] = new_node;
 
     if(_dictionary.size >= 2)
-        _dictionary.nodes[_dictionary.size-2].next = new_node;
+        _dictionary.nodes[_dictionary.size-2].next = &new_node;
 }
 
 /// Removes the first elemtent that mathes node_to_remove
 void remove_node(struct dictionary _dictionary, struct node node_to_remove) {
     for(int i = 0; i < _dictionary.size; i++) {
         if(compare_node(_dictionary.nodes[i], node_to_remove) == TRUE) {
-            _dictionary.nodes[i-1].next = _dictionary.nodes[i+1];
+            _dictionary.nodes[i-1].next = &_dictionary.nodes[i+1];
 
             free(_dictionary.nodes[i].this.key);
             free(_dictionary.nodes[i].this.value);
@@ -66,7 +66,7 @@ int compare_dictionary(struct dictionary _original, struct dictionary _match) {
     
     for(int i = 0; i < _match.size; i++) {
         if(!(_original.nodes[i].this.key == _match.nodes[i].this.key && _original.nodes[i].this.value == _original.nodes[i].this.value
-        && _original.nodes[i].next.key == _match.nodes[i].next.key && _original.nodes[i].next.value == _match.nodes[i].next.value))
+        && _original.nodes[i].next->this.key == _match.nodes[i].next->this.key && _original.nodes[i].next->this.value == _match.nodes[i].next->this.value))
         return FALSE;
     }
 
@@ -76,8 +76,32 @@ int compare_dictionary(struct dictionary _original, struct dictionary _match) {
 /// Compares all values of two nodes
 int compare_node(struct node _original, struct node _match) {
     if(_original.this.key == _match.this.key && _original.this.value == _original.this.value
-        && _original.next.key == _match.next.key && _original.next.value == _match.next.value)
+        && _original.next->this.key == _match.next->this.key && _original.next->this.value == _match.next->this.value)
         return TRUE;
     else 
         return FALSE;
+}
+
+struct node * look_up_internal(struct dictionary _dictionary, char * _string){
+    for(int i = 0; i < _dictionary.size; i++) {
+        if(_dictionary.nodes[i].this.key == _string || _dictionary.nodes[i].this.value == _string) {
+            return &_dictionary.nodes[i];
+        }
+    }
+
+    return NULL;
+}
+
+/// Used to look up a key within a given dictionary
+struct node * look_up_key(struct dictionary _dictionary, char * _key) {
+    return look_up_internal(_dictionary, _key);
+}
+
+// Used to look up a value within a given dictionary
+struct node * look_up_value(struct dictionary _dictionary, char * _value) {
+    return look_up_internal(_dictionary, _value);
+}
+
+int main() {
+    printf("test");
 }

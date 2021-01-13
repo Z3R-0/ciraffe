@@ -11,12 +11,15 @@ Integer literal     [0-9]+
 */
 #include <stdio.h>
 
-#include "structures.h"
+#include "libs/structures.h"
 
 #define FALSE 0
 #define TRUE 1
 
 struct dictionary recognized_tokens;
+
+void token_cleaner(struct dictionary dict);
+struct dictionary recognized_token_builder();
 
 // The first argument is always the program itself
 int main(int argc, char *argv[]) {
@@ -25,7 +28,7 @@ int main(int argc, char *argv[]) {
     recognized_tokens = recognized_token_builder();
 
 
-    // 
+    // Clean up
     token_cleaner(recognized_tokens);
 }
 
@@ -34,24 +37,17 @@ struct dictionary recognized_token_builder() {
 
     add_node(dict, "open bracket", "{");
     add_node(dict, "close bracket", "}");
-    add_node(dict, "open parenthesis", "\(");
-    add_node(dict, "open parenthesis", "\)");
+    add_node(dict, "open parenthesis", "\\(");
+    add_node(dict, "open parenthesis", "\\)");
     add_node(dict, "semicolon", ";");
     add_node(dict, "int keyword", "int");
     add_node(dict, "return keyword", "return");
-    add_node(dict, "identifier", "[a-zA-Z]\w*"); // regex for catching words seperated by whitespace
+    add_node(dict, "identifier", "[a-zA-Z]\\w*"); // regex for catching words seperated by whitespace
     add_node(dict, "integer literal", "[0-9]+"); // regex for catching numbers
 }
 
 void token_cleaner(struct dictionary dict) {
     destroy_dictionary(&dict);
-}
-
-char get_char(){
-    char token = ' ';
-
-
-    return token;
 }
 
 /*
