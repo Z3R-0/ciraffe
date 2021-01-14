@@ -10,7 +10,6 @@ Identifier          [a-zA-Z]\w*
 Integer literal     [0-9]+
 */
 #include <stdio.h>
-
 #include "libs/structures.h"
 
 #define FALSE 0
@@ -27,9 +26,11 @@ int main(int argc, char *argv[]) {
     char *file_to_parse = argv[1];
     recognized_tokens = recognized_token_builder();
 
+    printf("File to parse: %c", file_to_parse);
 
     // Clean up
     token_cleaner(recognized_tokens);
+    return 0;
 }
 
 struct dictionary recognized_token_builder() {

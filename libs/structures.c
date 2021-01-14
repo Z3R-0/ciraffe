@@ -101,7 +101,3 @@ struct node * look_up_key(struct dictionary _dictionary, char * _key) {
 struct node * look_up_value(struct dictionary _dictionary, char * _value) {
     return look_up_internal(_dictionary, _value);
 }
-
-int main() {
-    printf("test");
-}
