@@ -9,6 +9,7 @@ It's built using nodes and string pairs and supports:
 * Memory management
 * Adding/Removing nodes
 * Comparing nodes/dictionaries
+* Looking up keys or values
 
 ### Usage of structures.h
 ```c
