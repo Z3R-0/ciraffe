@@ -10,6 +10,7 @@ Identifier          [a-zA-Z]\w*
 Integer literal     [0-9]+
 */
 #include <stdio.h>
+#include <assert.h>
 #include "libs/structures.h"
 
 #define FALSE 0
@@ -26,17 +27,14 @@ int main(int argc, char *argv[]) {
     printf("Initializing lexer\n");
 
     char *file_to_lex = argv[1];
-    if(file_to_lex == NULL) {
-        printf("ERROR: Did not provide a file to lex");
-        return 1;
-    } else {
-        printf("File to lex: %s\n", file_to_lex);
-    }
+
+    assert(file_to_lex != NULL);
+    printf("File to lex: %s\n", file_to_lex);
 
     // Token dictionary builder
     recognized_token_builder();
 
-
+    assert(recognized_tokens->size > 0);
 
     // Clean up
     token_cleaner(recognized_tokens);
@@ -58,7 +56,7 @@ void recognized_token_builder() {
 }
 
 void token_cleaner(struct dictionary *_dictionary) {
-    destroy_dictionary(_dictionary);
+    free_dictionary(_dictionary);
 }
 
 /*

@@ -17,7 +17,7 @@ struct dictionary {
 };
 
 struct dictionary * create_dictionary();
-void destroy_dictionary(struct dictionary *_dictionary);
+void free_dictionary(struct dictionary *_dictionary);
 struct dictionary add_node(struct dictionary _dictionary, char *key, char *value);
 struct dictionary remove_node(struct dictionary _dictionary, struct node node_to_remove);
 int compare_dictionary(struct dictionary _original, struct dictionary _match);

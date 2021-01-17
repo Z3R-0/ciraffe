@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 #include "structures.h"
 
@@ -17,10 +18,13 @@ struct dictionary * create_dictionary() {
 }
 
 // Frees all memory held by provided dictionary
-void destroy_dictionary(struct dictionary *_dictionary) {
+void free_dictionary(struct dictionary *_dictionary) {
     //TODO Figure out why freeing the individual keys and values crashes the program...
     free(_dictionary->nodes);
     free(_dictionary);
+
+    _dictionary = NULL;
+    assert(_dictionary == NULL);
 }
 
 
