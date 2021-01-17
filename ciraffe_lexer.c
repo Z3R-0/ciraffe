@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
     char *file_to_parse = argv[1];
     recognized_tokens = recognized_token_builder();
 
-    printf("File to parse: %c", file_to_parse);
+    printf("File to parse: %s", file_to_parse);
 
     // Clean up
     token_cleaner(recognized_tokens);
@@ -45,6 +45,8 @@ struct dictionary recognized_token_builder() {
     add_node(dict, "return keyword", "return");
     add_node(dict, "identifier", "[a-zA-Z]\\w*"); // regex for catching words seperated by whitespace
     add_node(dict, "integer literal", "[0-9]+"); // regex for catching numbers
+    
+    return dict;
 }
 
 void token_cleaner(struct dictionary dict) {
