@@ -1,4 +1,4 @@
-![C/C++ CI](https://github.com/Z3R-0/ciraffe/workflows/C/C++%20CI/badge.svg?branch=master)
+![C/C++ CI](https://github.com/Z3R-0/ciraffe/workflows/Lexer/badge.svg?branch=master)
 # ciraffe
 An attempt at a transpiled programming language (transpiled to C), more for educational purposes than anything else.
 
