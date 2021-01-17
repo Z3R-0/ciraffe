@@ -16,4 +16,4 @@ jobs:
     - name: make lexer
       run: make lexer
     - name: run lexer
-      run: lexer return_2.c
+      run: ./lexer return_2.c
