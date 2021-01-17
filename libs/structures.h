@@ -16,10 +16,10 @@ struct dictionary {
     int size;
 };
 
-struct dictionary create_dictionary();
+struct dictionary * create_dictionary();
 void destroy_dictionary(struct dictionary *_dictionary);
-void add_node(struct dictionary _dictionary, char *key, char *value);
-void remove_node(struct dictionary _dictionary, struct node node_to_remove);
+struct dictionary add_node(struct dictionary _dictionary, char *key, char *value);
+struct dictionary remove_node(struct dictionary _dictionary, struct node node_to_remove);
 int compare_dictionary(struct dictionary _original, struct dictionary _match);
 int compare_node(struct node _original, struct node _match);
 struct node * look_up_key(struct dictionary _dictionary, char * _key);

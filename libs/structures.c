@@ -7,54 +7,54 @@
 #define TRUE 1
 
 /// Creates an empty dictionary
-struct dictionary create_dictionary() {
-    struct dictionary _dictionary;
-    malloc(sizeof(&_dictionary));
+struct dictionary * create_dictionary() {
+    struct dictionary *_dictionary = malloc(sizeof(&_dictionary));
+
+    _dictionary->size = 0;
+    _dictionary->nodes == NULL;
 
     return _dictionary;
 }
 
 // Frees all memory held by provided dictionary
 void destroy_dictionary(struct dictionary *_dictionary) {
-    for(int i = 0;i < _dictionary->size;i++){
-        free(_dictionary->nodes[i].this.key);
-        free(_dictionary->nodes[i].this.value);
-    }
-
+    //TODO Figure out why freeing the individual keys and values crashes the program...
     free(_dictionary->nodes);
     free(_dictionary);
 }
 
+
 /// Adds a node to the given dictionary using provided key and value
-void add_node(struct dictionary _dictionary, char *key, char *value) {
+struct dictionary add_node(struct dictionary _dictionary, char *key, char *value) {
     struct string_pair new_pair;
-
-    malloc(sizeof(new_pair));
-
+    
     new_pair.key = key;
     new_pair.value = value;
 
     struct node new_node = { new_node.this = new_pair };
 
     _dictionary.size++;
-    realloc(&_dictionary, sizeof(_dictionary));
+
+    _dictionary.nodes = malloc(sizeof(struct node) * _dictionary.size);
+    if(_dictionary.nodes == NULL) {
+        printf("Could not allocate memory for adding a new node\n");
+    }
 
     _dictionary.nodes[_dictionary.size-1] = new_node;
 
     if(_dictionary.size >= 2)
         _dictionary.nodes[_dictionary.size-2].next = &new_node;
+
+    return _dictionary;
 }
 
 /// Removes the first elemtent that mathes node_to_remove
-void remove_node(struct dictionary _dictionary, struct node node_to_remove) {
+struct dictionary remove_node(struct dictionary _dictionary, struct node node_to_remove) {
     for(int i = 0; i < _dictionary.size; i++) {
         if(compare_node(_dictionary.nodes[i], node_to_remove) == TRUE) {
             _dictionary.nodes[i-1].next = &_dictionary.nodes[i+1];
 
-            free(_dictionary.nodes[i].this.key);
-            free(_dictionary.nodes[i].this.value);
-
-            return;
+            return _dictionary;
         }
     }
 }

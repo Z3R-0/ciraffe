@@ -15,42 +15,50 @@ Integer literal     [0-9]+
 #define FALSE 0
 #define TRUE 1
 
-struct dictionary recognized_tokens;
+struct dictionary *recognized_tokens;
 
-void token_cleaner(struct dictionary dict);
-struct dictionary recognized_token_builder();
+void token_cleaner(struct dictionary *_dictionary);
+void recognized_token_builder();
 
 // The first argument is always the program itself
 int main(int argc, char *argv[]) {
     // Initialization
-    char *file_to_parse = argv[1];
-    recognized_tokens = recognized_token_builder();
+    printf("Initializing lexer\n");
 
-    printf("File to parse: %s", file_to_parse);
+    char *file_to_lex = argv[1];
+    if(file_to_lex == NULL) {
+        printf("ERROR: Did not provide a file to lex");
+        return 1;
+    } else {
+        printf("File to lex: %s\n", file_to_lex);
+    }
+
+    // Token dictionary builder
+    recognized_token_builder();
+
+
 
     // Clean up
     token_cleaner(recognized_tokens);
     return 0;
 }
 
-struct dictionary recognized_token_builder() {
-    struct dictionary dict = create_dictionary();
-
-    add_node(dict, "open bracket", "{");
-    add_node(dict, "close bracket", "}");
-    add_node(dict, "open parenthesis", "\\(");
-    add_node(dict, "open parenthesis", "\\)");
-    add_node(dict, "semicolon", ";");
-    add_node(dict, "int keyword", "int");
-    add_node(dict, "return keyword", "return");
-    add_node(dict, "identifier", "[a-zA-Z]\\w*"); // regex for catching words seperated by whitespace
-    add_node(dict, "integer literal", "[0-9]+"); // regex for catching numbers
+void recognized_token_builder() {
+    recognized_tokens = create_dictionary();
     
-    return dict;
+    *recognized_tokens = add_node(*recognized_tokens, "open bracket", "{");
+    *recognized_tokens = add_node(*recognized_tokens, "close bracket", "}");
+    *recognized_tokens = add_node(*recognized_tokens, "open parenthesis", "\\(");
+    *recognized_tokens = add_node(*recognized_tokens, "open parenthesis", "\\)");
+    *recognized_tokens = add_node(*recognized_tokens, "semicolon", ";");
+    *recognized_tokens = add_node(*recognized_tokens, "int keyword", "int");
+    *recognized_tokens = add_node(*recognized_tokens, "return keyword", "return");
+    *recognized_tokens = add_node(*recognized_tokens, "identifier", "[a-zA-Z]\\w*"); // regex for catching words seperated by whitespace
+    *recognized_tokens = add_node(*recognized_tokens, "integer literal", "[0-9]+"); // regex for catching numbers
 }
 
-void token_cleaner(struct dictionary dict) {
-    destroy_dictionary(&dict);
+void token_cleaner(struct dictionary *_dictionary) {
+    destroy_dictionary(_dictionary);
 }
 
 /*
