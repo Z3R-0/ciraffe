@@ -19,7 +19,7 @@ It's built using nodes and string pairs and supports:
 int main() {
     struct dictionary foo = create_dictionary();
 
-    add_node(foo, "key", "value");
+    foo = add_node(foo, "key", "value");
 
     // Do some dictionary stuff here
 
