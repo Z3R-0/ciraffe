@@ -14,7 +14,7 @@ It's built using nodes and string pairs and supports:
 
 ### Usage of structures.h
 ```c
-#include <structures.h>
+#include "structures.h"
 
 int main() {
     struct dictionary foo = create_dictionary();
