@@ -23,7 +23,7 @@ void print_dictionary(struct dictionary _dictionary) {
         printf("Entry %d: ", i);
         printf("key = %s | ", _dictionary.nodes[i].this.key);
         printf("value = %s | ", _dictionary.nodes[i].this.value);
-        printf("next = %u\n", _dictionary.nodes[i].next);
+        printf("next = %p\n", (void *) _dictionary.nodes[i].next);
     }
 }
 
