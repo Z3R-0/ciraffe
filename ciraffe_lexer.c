@@ -33,8 +33,9 @@ int main(int argc, char *argv[]) {
 
     // Token dictionary builder
     recognized_token_builder();
-
     assert(recognized_tokens->size > 0);
+
+    print_dictionary(*recognized_tokens);
 
     // Clean up
     token_cleaner(recognized_tokens);
@@ -47,7 +48,7 @@ void recognized_token_builder() {
     *recognized_tokens = add_node(*recognized_tokens, "open bracket", "{");
     *recognized_tokens = add_node(*recognized_tokens, "close bracket", "}");
     *recognized_tokens = add_node(*recognized_tokens, "open parenthesis", "\\(");
-    *recognized_tokens = add_node(*recognized_tokens, "open parenthesis", "\\)");
+    *recognized_tokens = add_node(*recognized_tokens, "close parenthesis", "\\)");
     *recognized_tokens = add_node(*recognized_tokens, "semicolon", ";");
     *recognized_tokens = add_node(*recognized_tokens, "int keyword", "int");
     *recognized_tokens = add_node(*recognized_tokens, "return keyword", "return");
