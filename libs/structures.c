@@ -29,9 +29,11 @@ void print_dictionary(struct dictionary _dictionary) {
 
 // Frees all memory held by provided dictionary
 void free_dictionary(struct dictionary *_dictionary) {
+    /*
     for(int i = 0; i < _dictionary->size; i++) {
         free(_dictionary->nodes->next);
     }
+    */
     free(_dictionary->nodes);
     free(_dictionary);
 

@@ -39,6 +39,9 @@ int main(int argc, char *argv[]) {
 
     // Clean up
     token_cleaner(recognized_tokens);
+
+    printf("Finished up!\n");
+
     return 0;
 }
 
