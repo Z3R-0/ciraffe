@@ -7,7 +7,7 @@ Currently the language itself is not in working order, so give it about 2 eons a
 
 There is however ```structures.h``` which you could use as a dictionary library.
 It's built using nodes and string pairs and supports:
-* Memory management
+* Memory management (WIP...)
 * Adding/Removing nodes
 * Comparing nodes/dictionaries
 * Looking up keys or values
