@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 
 #include "structures.h"
@@ -43,20 +44,11 @@ void free_dictionary(struct dictionary *_dictionary) {
 
 /// Adds a node to the given dictionary using provided key and value
 struct dictionary add_node(struct dictionary _dictionary, char *key, char *value) {
-    printf("adding token");
     struct string_pair new_pair;
     
-    new_pair.key = key;
-    new_pair.value = value;
-    printf("hi");
-    struct node new_node = { new_node.this = new_pair };
-    
-    _dictionary.nodes[_dictionary.size].this.key = malloc(sizeof(key));
-    _dictionary.nodes[_dictionary.size].this.value = malloc(sizeof(value));
-
-    printf("Hello");
-
     _dictionary.size++;
+    
+    printf("Dict size: %d\n", _dictionary.size);
 
     if(_dictionary.size > 1) {
         _dictionary.nodes = realloc(_dictionary.nodes, sizeof(struct node) * _dictionary.size);
@@ -68,12 +60,19 @@ struct dictionary add_node(struct dictionary _dictionary, char *key, char *value
         }
     }
 
+    new_pair.key = key;
+    new_pair.value = value;
+    struct node new_node = { new_node.this = new_pair };
+
+    _dictionary.nodes[_dictionary.size].this.key = strdup(key);
+    _dictionary.nodes[_dictionary.size].this.value = strdup(value);
+
     _dictionary.nodes[_dictionary.size - 1] = new_node;
 
     if(_dictionary.size >= 1) {
         _dictionary.nodes[_dictionary.size-1].next = &_dictionary.nodes[_dictionary.size];
     }
-    
+
     return _dictionary;
 }
 

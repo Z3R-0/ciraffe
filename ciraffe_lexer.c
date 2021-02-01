@@ -35,6 +35,8 @@ int main(int argc, char *argv[]) {
     recognized_token_builder();
     assert(recognized_tokens->size > 0);
 
+    printf("Finished building tokens!\n");
+
     print_dictionary(*recognized_tokens);
 
     // Clean up
