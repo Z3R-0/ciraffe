@@ -43,17 +43,18 @@ void free_dictionary(struct dictionary *_dictionary) {
 
 /// Adds a node to the given dictionary using provided key and value
 struct dictionary add_node(struct dictionary _dictionary, char *key, char *value) {
+    printf("adding token");
     struct string_pair new_pair;
-
-    char *_key = malloc(sizeof(key));
-    _key = key;
-    char *_value = malloc(sizeof(value));
-    _value = value;
     
-    new_pair.key = _key;
-    new_pair.value = _value;
-
+    new_pair.key = key;
+    new_pair.value = value;
+    printf("hi");
     struct node new_node = { new_node.this = new_pair };
+    
+    _dictionary.nodes[_dictionary.size].this.key = malloc(sizeof(key));
+    _dictionary.nodes[_dictionary.size].this.value = malloc(sizeof(value));
+
+    printf("Hello");
 
     _dictionary.size++;
 
@@ -61,6 +62,7 @@ struct dictionary add_node(struct dictionary _dictionary, char *key, char *value
         _dictionary.nodes = realloc(_dictionary.nodes, sizeof(struct node) * _dictionary.size);
     } else {
         _dictionary.nodes = malloc(sizeof(struct node) * _dictionary.size);
+
         if(_dictionary.nodes == NULL) {
             printf("Could not allocate memory for adding a new node\n");
         }
