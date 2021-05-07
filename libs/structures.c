@@ -7,12 +7,17 @@
 #define FALSE 0
 #define TRUE 1
 
-/// Creates an empty dictionary
+/*
+	Currently the Dictionary struct does not work, when adding a node the program
+	is killed on reallocing the nodes property. Still not sure what causes this.
+*/
+
+// Creates an empty dictionary
 struct dictionary * create_dictionary() {
     struct dictionary *_dictionary = malloc(sizeof(&_dictionary));
 
     _dictionary->size = 0;
-    _dictionary->nodes == NULL;
+    _dictionary->nodes = NULL;
 
     return _dictionary;
 }
@@ -29,11 +34,10 @@ void print_dictionary(struct dictionary _dictionary) {
 
 // Frees all memory held by provided dictionary
 void free_dictionary(struct dictionary *_dictionary) {
-    /*
     for(int i = 0; i < _dictionary->size; i++) {
         free(_dictionary->nodes->next);
     }
-    */
+    
     free(_dictionary->nodes);
     free(_dictionary);
 
