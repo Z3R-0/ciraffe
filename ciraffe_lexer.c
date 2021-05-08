@@ -16,8 +16,9 @@ Integer literal     [0-9]+
 #define FALSE 0
 #define TRUE 1
 
-char *tokens;
+char *recognized_tokens;
 
+char * match_tokens(char *, FILE *);
 
 // The first argument is always the program itself
 int main(int argc, char *argv[]) {
@@ -26,16 +27,25 @@ int main(int argc, char *argv[]) {
 
     char *file_to_lex = argv[1];
 
-    //assert(file_to_lex != NULL);
     printf("File to lex: %s\n", file_to_lex);
-
-    tokens = (char *) malloc(53);
-    tokens = "{, }, \\(, \\), ;, int, return, [a-zA-Z]\\w*, [0-9]+";
-    printf("Tokens: %s", tokens);
     
-    
+    FILE *fp;
+    fp = fopen(file_to_lex, "r");
+    assert(fp != NULL);
 
+    recognized_tokens = (char *) malloc(45);
+    recognized_tokens = "{,},\\(,\\),;,int,return,[a-zA-Z]\\w*,[0-9]+";
+    printf("Tokens: %s", recognized_tokens);
+    
+    char *lexed_tokens = match_tokens(recognized_tokens, fp);
+    
+    assert(lexed_tokens != NULL);
+    
     return 0;
+}
+
+char * match_tokens(char *_tokens, FILE *fp) {
+	return NULL;
 }
 
 /*
