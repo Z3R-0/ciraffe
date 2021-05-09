@@ -3,7 +3,7 @@
 An attempt at a transpiled programming language (transpiled to C), more for educational purposes than anything else.
 
 ## Installation
-Currently the language itself is not in working order, so give it about 2 eons and maybe I'll have implemented the ability to compile my own printf :)
+Currently the language itself is not in working order, so give it about 2 eons and maybe I'll have implemented the ability to "compile" my own printf :)
 
 There is however ```structures.h``` which you could use as a dictionary library.
 It's built using nodes and string pairs and supports:
