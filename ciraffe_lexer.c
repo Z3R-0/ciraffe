@@ -37,6 +37,7 @@ int main(int argc, char *argv[]) {
     recognized_tokens = "{,},\\(,\\),;,int,return,[a-zA-Z]\\w*,[0-9]+";
     printf("Tokens: %s", recognized_tokens);
     
+    printf("Lexing tokens");
     char *lexed_tokens = match_tokens(recognized_tokens, fp);
     
     assert(lexed_tokens != NULL);
