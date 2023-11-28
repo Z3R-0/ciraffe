@@ -11,6 +11,7 @@ Integer literal     [0-9]+
 */
 #include <stdio.h>
 #include <assert.h>
+#include <stdlib.h>
 #include "libs/structures.h"
 
 #define FALSE 0
