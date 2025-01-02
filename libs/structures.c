@@ -7,17 +7,12 @@
 #define FALSE 0
 #define TRUE 1
 
-/*
-	Currently the Dictionary struct does not work, when adding a node the program
-	is killed on reallocing the nodes property. Still not sure what causes this.
-*/
-
 // Creates an empty dictionary
 struct dictionary * create_dictionary() {
     struct dictionary *_dictionary = malloc(sizeof(struct dictionary));
 
     _dictionary->size = 0;
-    _dictionary->nodes = NULL;
+    _dictionary->string_pair = NULL;
 
     return _dictionary;
 }
@@ -26,16 +21,15 @@ struct dictionary * create_dictionary() {
 void print_dictionary(struct dictionary *_dictionary) {
     for(int i = 0; i < _dictionary->size; i++) {
         printf("Entry %d: ", i);
-        printf("key = %s | ", _dictionary->nodes[i].this.key);
-        printf("value = %s | ", _dictionary->nodes[i].this.value);
-        printf("next = %p\n", (void *) _dictionary->nodes[i].next);
+        printf("key = %s | ", _dictionary->string_pair[i].key);
+        printf("value = %s | ", _dictionary->string_pair[i].value);
     }
 }
 
 // Frees all memory held by provided dictionary
 void free_dictionary(struct dictionary *_dictionary) {
     for(int i = 0; i < _dictionary->size; i++) {
-        free(&_dictionary->nodes[i]);
+        free(&_dictionary->string_pair[i]);
     }
     free(_dictionary);
 
@@ -45,51 +39,45 @@ void free_dictionary(struct dictionary *_dictionary) {
 
 
 /// Adds a node to the given dictionary using provided key and value
-struct dictionary * add_node(struct dictionary *_dictionary, char *key, char *value) {
+struct dictionary * add(struct dictionary *_dictionary, char *key, char *value) {
     struct string_pair *new_pair = malloc(sizeof(struct string_pair));
     
     new_pair->key = key;
     new_pair->value = value;
 
-    struct node new_node;
-    new_node.this = *new_pair;
-
     _dictionary->size++;
-    
-    // Implement the new method here
-    /* 
-    	Implementation reference
-    	truct node _n[4] = { node1, node2, node3, node4 };
-		_dictionary->nodes = _n;
-		_dictionary->size = 4;
-    */
 
-	/*
     if(_dictionary->size > 1) {
-        _dictionary->nodes = realloc(_dictionary->nodes, sizeof(struct node) * _dictionary->size);
+        _dictionary->string_pair = realloc(_dictionary->string_pair, sizeof(struct string_pair) * _dictionary->size);
     } else {
-        _dictionary->nodes = malloc(sizeof(struct node) * _dictionary->size);
-        if(_dictionary->nodes == NULL) {
+        _dictionary->string_pair = malloc(sizeof(struct string_pair) * _dictionary->size);
+        if(_dictionary->string_pair == NULL) {
             printf("Could not allocate memory for adding a new node\n");
         }
     }
 
-    _dictionary->nodes[_dictionary->size - 1] = new_node;
-
-    if(_dictionary->size >= 1) {
-        _dictionary->nodes[_dictionary->size-1].next = &_dictionary->nodes[_dictionary->size];
-    }*/
+    _dictionary->string_pair[_dictionary->size - 1] = *new_pair;
     
     return _dictionary;
 }
 
 /// Removes the first elemtent that mathes node_to_remove
-struct dictionary * remove_node(struct dictionary *_dictionary, struct node node_to_remove) {
+struct dictionary * remove_stringpair(struct dictionary *_dictionary, char *key) {
+    /* OLD IMPLEMENTATION
     for(int i = 0; i < _dictionary->size; i++) {
         if(compare_node(_dictionary->nodes[i], node_to_remove) == TRUE) {
             _dictionary->nodes[i-1].next = &_dictionary->nodes[i+1];
 
             return _dictionary;
+        }
+    }
+    */
+
+   // Wow this one kinda hard, figure it out later lmao
+
+   for(int i = 0; i < _dictionary->size; i++) {
+        if(_dictionary[i].string_pair->key == key) {
+            
         }
     }
 }
@@ -100,27 +88,25 @@ int compare_dictionary(struct dictionary *_original, struct dictionary *_match) 
         return FALSE;
     
     for(int i = 0; i < _match->size; i++) {
-        if(!(_original->nodes[i].this.key == _match->nodes[i].this.key && _original->nodes[i].this.value == _original->nodes[i].this.value
-        && _original->nodes[i].next->this.key == _match->nodes[i].next->this.key && _original->nodes[i].next->this.value == _match->nodes[i].next->this.value))
-        return FALSE;
+        if(!(_original->string_pair[i].key == _match->string_pair[i].key && _original->string_pair[i].value == _original->string_pair[i].value))
+            return FALSE;
     }
 
     return TRUE;
 }
 
 /// Compares all values of two nodes
-int compare_node(struct node _original, struct node _match) {
-    if(_original.this.key == _match.this.key && _original.this.value == _original.this.value
-        && _original.next->this.key == _match.next->this.key && _original.next->this.value == _match.next->this.value)
+int compare_stringpair(struct string_pair _original, struct string_pair _match) {
+    if(_original.key == _match.key && _original.value == _original.value)
         return TRUE;
     else 
         return FALSE;
 }
 
-struct node * look_up_internal(struct dictionary *_dictionary, char * _string){
+struct string_pair * look_up_internal(struct dictionary *_dictionary, char * _searchString){
     for(int i = 0; i < _dictionary->size; i++) {
-        if(_dictionary->nodes[i].this.key == _string || _dictionary->nodes[i].this.value == _string) {
-            return &_dictionary->nodes[i];
+        if(_dictionary->string_pair[i].key == _searchString || _dictionary->string_pair[i].value == _searchString) {
+            return &_dictionary->string_pair[i];
         }
     }
 
@@ -128,11 +114,11 @@ struct node * look_up_internal(struct dictionary *_dictionary, char * _string){
 }
 
 /// Used to look up a key within a given dictionary
-struct node * look_up_key(struct dictionary *_dictionary, char * _key) {
+struct string_pair * look_up_key(struct dictionary *_dictionary, char * _key) {
     return look_up_internal(_dictionary, _key);
 }
 
 // Used to look up a value within a given dictionary
-struct node * look_up_value(struct dictionary *_dictionary, char * _value) {
+struct string_pair * look_up_value(struct dictionary *_dictionary, char * _value) {
     return look_up_internal(_dictionary, _value);
 }
